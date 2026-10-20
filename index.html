@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#050816">
+<title>لحظات لا تُنسى ✦</title>
+<style>
+:root{--bg:#050816;--blue:#101b3c;--white:#f7f7ff;--muted:#aeb8dc;--pink:#f3b8d0;--line:#ffffff25}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 35%,#14234b 0%,#080d22 48%,#03050e 100%);color:var(--white);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;overflow-x:hidden}
+#sky{position:fixed;inset:0;width:100%;height:100%;z-index:-1}
+.wrap{width:min(100% - 30px,650px);margin:auto}
+.top{padding:22px 0;text-align:center;color:#d9def6;font-size:.82rem;letter-spacing:2px}
+.hero{min-height:calc(100svh - 60px);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:12px 0 42px}
+.kicker{font-size:.88rem;color:#b7c7ff;letter-spacing:1px}
+h1{font-size:clamp(1.85rem,7vw,3rem);line-height:1.65;font-weight:600;margin:20px 0 10px;text-shadow:0 0 30px #9ab4ff35}
+.message{font-size:clamp(1.12rem,4.4vw,1.5rem);line-height:2;color:#f4e8f4;max-width:530px;margin:0 auto 25px}
+.message span{color:var(--pink)}
+.countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;width:100%;max-width:450px;direction:rtl;margin:12px auto 16px}
+.unitbox{border:1px solid #b7c7ff38;background:#0c1430a8;border-radius:16px;padding:15px 3px;box-shadow:0 0 28px #5064b00b;backdrop-filter:blur(8px)}
+.num{font-size:clamp(1.65rem,6.5vw,2.3rem);font-weight:700;letter-spacing:1px;color:#e9edff;font-variant-numeric:tabular-nums}
+.label{font-size:.78rem;color:#aeb8dc;margin-top:4px}
+.date{font-size:.91rem;color:#aeb8dc;line-height:1.9}
+.rule{display:flex;align-items:center;gap:13px;color:#8c9ac8;margin:26px 0 10px}
+.rule:before,.rule:after{content:"";height:1px;width:45px;background:#9aaddb40}
+.lock{font-size:1.1rem}
+.note{font-size:.82rem;line-height:1.8;color:#8490b9;margin:0}
+.nav{display:none;gap:8px;flex-wrap:wrap;justify-content:center;margin:24px 0 18px}
+.nav.show{display:flex}
+.nav button,.btn{border:1px solid #a8b7ff55;border-radius:999px;background:#101a39e8;color:#f4f5ff;padding:10px 14px;font:inherit;font-size:.9rem}
+.nav button.active,.btn.primary{background:#dce4ff;color:#10172d;border-color:#dce4ff}
+.section{display:none;margin:20px auto 40px;animation:fade .45s ease}
+.section.show{display:block}
+.card{border:1px solid var(--line);background:#0b1127d9;border-radius:23px;padding:23px;line-height:2;box-shadow:0 15px 55px #0002;backdrop-filter:blur(10px)}
+h2{font-size:1.35rem;color:#e4e9ff;margin-top:0}
+.photos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.photo{padding:8px;border-radius:15px;background:#121b39;border:1px solid var(--line);text-align:center}
+.photo img{width:100%;height:155px;object-fit:cover;border-radius:10px;background:#172345}
+.caption{font-size:.87rem;padding-top:6px;color:#d9def6}
+.answers{display:grid;gap:9px;margin:15px 0}
+.answer{border:1px solid #b7c7ff35;border-radius:13px;padding:12px;background:#111b39;color:#f5f6ff;text-align:right}
+.result{color:#f3b8d0;min-height:28px;font-weight:700}
+.hidden{display:none!important}
+.stage{display:none;margin:18px auto 42px;animation:fade .65s ease}
+.stage.show{display:block}
+.stage-card{border:1px solid #ffffff24;background:linear-gradient(160deg,#11182bdc,#090e20e8);border-radius:24px;padding:18px;box-shadow:0 18px 60px #0005;backdrop-filter:blur(10px)}
+.story-image{display:block;width:100%;max-height:72vh;object-fit:contain;border-radius:14px;background:#080b16;margin:0 auto 22px}
+.story-text{font-size:clamp(1.05rem,4.2vw,1.3rem);line-height:2.15;text-align:center;color:#f5edf6;white-space:pre-line}
+.story-text strong{color:#f3b8d0;font-weight:800}
+.stage-actions{text-align:center;margin-top:22px}
+.stage-btn{border:1px solid #f3b8d077;border-radius:999px;background:linear-gradient(135deg,#f3b8d0,#e9d9ff);color:#24182a;padding:12px 26px;font:inherit;font-weight:700;font-size:1rem;box-shadow:0 8px 30px #f3b8d01c;cursor:pointer}
+.intro-stage{display:none;text-align:center;margin:10px auto 35px;animation:fade .6s ease}
+.intro-stage.show{display:block}
+footer{text-align:center;color:#66729c;padding:20px 0 32px;font-size:.8rem}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(max-width:360px){.countdown{gap:5px}.unitbox{padding:12px 2px}.photos{grid-template-columns:1fr}.photo img{height:200px}}
+</style>
+</head>
+<body>
+<canvas id="sky" aria-hidden="true"></canvas>
+<audio id="bgMusic" src="music.mp3" preload="auto"></audio>
+<div class="wrap">
+  <div class="top">✦ &nbsp; لحظة في الزمن &nbsp; ✦</div>
+  <main>
+    <section class="hero">
+      <div class="kicker">بعض الأشياء تستحق الانتظار</div>
+      <h1>الوقت هيعدّي…<br>بس اللحظات <span style="color:#f3b8d0">مش هتتنسي.</span></h1>
+      <p class="message">لكل حاجة وقتها…<br>ولكل لحظة حكاية <span>لسه ما اتحكتش.</span></p>
+      <div class="countdown" aria-label="الوقت المتبقي">
+        <div class="unitbox"><div class="num" id="days">--</div><div class="label">يوم</div></div>
+        <div class="unitbox"><div class="num" id="hours">--</div><div class="label">ساعة</div></div>
+        <div class="unitbox"><div class="num" id="minutes">--</div><div class="label">دقيقة</div></div>
+        <div class="unitbox"><div class="num" id="seconds">--</div><div class="label">ثانية</div></div>
+      </div>
+      <div class="date" id="dateText">الأربعاء ٢١ أكتوبر — الساعة ١٢:٠٠ صباحًا</div>
+      <div class="rule"><span class="lock">✧</span></div>
+      <p class="note" id="note">مش محتاجة تعملي أي حاجة دلوقتي.<br>سيبي الوقت ياخد وقته.</p>
+      <div class="intro-stage" id="readyStage">
+        <button class="stage-btn" id="readyBtn">اضغطي لو جاهزة ❤️</button>
+      </div>
+    </section>
+    <section class="stage" id="reconcileStage">
+      <div class="stage-card story-text">
+        <p>عارفة، رغم إن بقالنا فترة مش بنتكلم، بس في حاجات حلوة مكانها مبيتغيرش بسهولة، وفي ناس مهما حصل بينهم، بيفضل ليهم مكان مختلف عن أي حد تاني.</p>
+        <p>أنا مش عايز أرجع أتكلم عن اللي فات، ولا أعدّد مين زعل مين.. أنا بس حبيت أسيب للّحظة دي فرصة، يمكن تكون بداية لحاجة أهدى وأحلى من اللي فات.</p>
+        <p><strong>مش كل الحكايات الحلوة بتخلص عند أول صفحة صعبة.. ساعات بتحتاج بس إننا نكمّلها بشكل أحلى. ❤️</strong></p>
+        <div class="stage-actions"><button class="stage-btn" id="reconcileContinue">كمّلي ❤️</button></div>
+      </div>
+    </section>
+    <section class="stage" id="octoberStage">
+      <div class="stage-card">
+        <img class="story-image" src="photos/october-story.jpg" alt="حكاية أكتوبر" />
+        <div class="story-text">
+          <p>لَمْ أَسْتَطِعْ أَنْ أَتْرُكَ أُكْتُوبَرَ يُوشِكُ عَلَى الانْتِهَاءِ دُونَ أَنْ تَتَحَقَّقَ أُسْطُورَتُهُ..</p>
+          <p>فَفِي يَوْمِكِ، الْحَادِي وَالْعِشْرِينَ مِنْهُ، هَا قَدْ عَادَ الْغَائِبُ كَمَا تَمَنَّيْتِ..</p>
+          <p><strong>وَجِئْتُ مُشْتَاقًا..</strong><br>مُحَمَّلًا بِحَنِينٍ لَمْ تُطْفِئْهُ الْمَسَافَاتُ، وَلَمْ يَسْتَطِعِ الصَّمْتُ أَنْ يَنْتَزِعَهُ مِنْ قَلْبِي.</p>
+          <p>جِئْتُ لِأَقُولَ لَكِ إِنَّ لَكِ فِي الْقَلْبِ مَكَانًا لَا يُشْبِهُهُ أَحَدٌ، وَإِنَّ بَعْضَ الْحِكَايَاتِ تَسْتَحِقُّ فُرْصَةً أُخْرَى لِتُكْتَبَ بِشَكْلٍ أَجْمَلَ.</p>
+          <p><strong>فَهَا أَنَا هُنَا، يَا مَيّ.. وَمَا زَالَ فِي الْقَلْبِ لَكِ كَثِيرٌ مِنَ الْحُبِّ الَّذِي لَمْ يُقَلْ. ❤️</strong></p>
+        </div>
+        <div class="stage-actions"><button class="stage-btn" id="octoberContinue">كمّلي ❤️</button></div>
+      </div>
+    </section>
+    <section class="stage" id="giftPhotoStage">
+      <div class="stage-card">
+        <img class="story-image" src="photos/gift.jpg" alt="الهدية" />
+        <div class="story-text">كان نفسي اللحظة دي تبقى مختلفة، وأشوف فرحتك وإنتِ بتفتحيها..<br><br>بس لحد ما تيجي اللحظة دي، حبيت أسيبلك حاجة صغيرة تفضل تفكرك إن في حاجات حلوة لسه تستاهل، وإن يفضل بينا كل حاجة حلوة. ❤️</div>
+        <div class="stage-actions"><button class="stage-btn" id="giftContinue">كمّلي ❤️</button></div>
+      </div>
+    </section>
+    <section class="stage" id="sittingPhotoStage">
+      <div class="stage-card">
+        <img class="story-image" src="photos/me-with-gift-sitting.jpg" alt="صورة مع الهدية" />
+        <div class="story-text">في صور بنحتفظ بيها عشان شكلنا فيها حلو، وفي صور بنحتفظ بيها عشان وراها إحساس عمره ما كان عادي..<br><br>والصورة دي بالنسبالي مش مجرد صورة، دي لحظة وراها مشاعر كتير، وشخص كان نفسه يشارك فرحته مع أغلى حد عنده. ❤️</div>
+        <div class="stage-actions"><button class="stage-btn" id="sittingContinue">كمّلي ❤️</button></div>
+      </div>
+    </section>
+    <section class="stage" id="standingPhotoStage">
+      <div class="stage-card">
+        <img class="story-image" src="photos/me-with-gift-standing.jpg" alt="صورة تانية مع الهدية" />
+        <div class="story-text">في لحظات بتعدّي بسرعة، بس بتفضل عايشة جوانا أطول بكتير من وقتها..<br><br>ويمكن أجمل حاجة في الحكاية كلها، إن لسه عندنا فرصة نخلي اللي جاي أهدى وأحلى. 🤍</div>
+        <div class="stage-actions"><button class="stage-btn" id="standingContinue">كمّلي ❤️</button></div>
+      </div>
+    </section>
+    <section class="section" id="letter">
+      <div class="card">
+        <h2>في الوقت المناسب… 💌</h2>
+        <p>يا مي، كل سنة وإنتِ طيبة ❤️</p>
+        <p>مش هتظاهر إن الفترة اللي فاتت ماحصلتش، ولا هطلب منك تردّي على حاجة. حبيت أسيبلك مساحة صغيرة فيها كلام اتكتب مخصوص ليكي.</p>
+        <p>أتمنى سنتك الجديدة تكون أهدى، وأخف على قلبك، ومليانة حاجات حلوة وضحك من قلبك. وحتى لو نكتي لسه بايخة، فدي حاجة ثابتة في الحياة تقريبًا 😂</p>
+        <p>خدي الرسالة على قد ما تحبي، وبالطريقة اللي تريحك. عيد ميلاد سعيد يا ميووش. ❤️</p>
+        <p style="color:#f3b8d0;font-weight:800">— حمصاني</p>
+      </div>
+    </section>
+    <section class="section" id="memories">
+      <div class="card">
+        <h2>لحظات ليها مكان 📷</h2>
+        <p>بدّل الصور دي بصوركم، واكتب تحتها ذكريات حقيقية تخصكم.</p>
+        <div class="photos">
+          <div class="photo"><img src="photos/photo1.jpg" alt="ذكرى أولى" onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<div>صورتكم الأولى ✦</div>')"><div class="caption">ذكرى أولى</div></div>
+          <div class="photo"><img src="photos/photo2.jpg" alt="ذكرى ثانية" onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<div>ضحكة قديمة ♡</div>')"><div class="caption">ضحكة قديمة</div></div>
+          <div class="photo"><img src="photos/photo3.jpg" alt="ذكرى ثالثة" onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<div>تفصيلة صغيرة ✧</div>')"><div class="caption">تفصيلة صغيرة</div></div>
+          <div class="photo"><img src="photos/photo4.jpg" alt="ذكرى رابعة" onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<div>لحظة حلوة ☆</div>')"><div class="caption">لحظة حلوة</div></div>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="game">
+      <div class="card">
+        <h2>سؤال خفيف 😏</h2>
+        <p id="question">لو النكتة طلعت بايخة، الحل إيه؟</p>
+        <div class="answers" id="answers">
+          <button class="answer" data-msg="الشوكولاتة فعلًا بتصلّح حاجات كتير 🍫">تعويض شوكولاتة 🍫</button>
+          <button class="answer" data-msg="ضحكة مجاملة؟ دي مهارة نادرة 😂">الضحك من باب الذوق</button>
+          <button class="answer" data-msg="تم تسجيل الاعتراض… والنكتة ممكن تتكرر برضه 😭">منع حمصاني من الكلام</button>
+        </div>
+        <div class="result" id="result"></div>
+      </div>
+    </section>
+    <section class="section" id="ending">
+      <div class="card">
+        <h2>آخر حاجة ✨</h2>
+        <p>مش كل حاجة لازم يبقى ليها رد، ومش كل لحظة بتتنسى لمجرد إن الوقت عدى. أتمنى لك أيام جاية فيها راحة وفرح وأسباب كتير تضحكي من قلبك.</p>
+        <p>عيد ميلاد سعيد يا مي. أتمنى لك الخير بجد. ❤️</p>
+        <p style="color:#f3b8d0;font-weight:800">— حمصاني</p>
+      </div>
+    </section>
+  </main>
+  <footer>سماء هادية، ووقت بيعدّي، ولحظات بتفضل ✦</footer>
+</div>
+<script>
+// الموعد: بداية الأربعاء 21 أكتوبر 2026، الساعة 12 صباحًا بتوقيت مصر.
+const TARGET_ISO = "2026-10-21T00:00:00+03:00";
+const TEST_MODE = false; // نسخة تجربة مؤقتة: true يفتح الموقع فورًا، false يعيد العدّاد
+const target = new Date(TARGET_ISO).getTime();
+const pad = n => String(n).padStart(2,"0");
+let unlocked=false;
+function showSection(id){
+  document.querySelectorAll(".section").forEach(s=>s.classList.toggle("show",s.id===id));
+  document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.target===id));
+  document.getElementById(id).scrollIntoView({behavior:"smooth",block:"start"});
+}
+function unlock(){
+  if(unlocked)return; unlocked=true;
+  document.getElementById("readyStage").classList.add("show");
+  document.getElementById("note").textContent="لما تكوني جاهزة… اضغطي وكمّلي الحكاية براحتك.";
+  document.getElementById("dateText").textContent="الآن، تبدأ الحكاية.";
+  ["days","hours","minutes","seconds"].forEach(id=>document.getElementById(id).textContent="00");
+}
+function showStage(id){
+  document.querySelectorAll(".stage").forEach(s=>s.classList.toggle("show",s.id===id));
+  document.querySelectorAll(".section").forEach(s=>s.classList.remove("show"));
+  document.getElementById(id).scrollIntoView({behavior:"smooth",block:"start"});
+}
+function tick(){
+  let diff=target-Date.now();
+  if(diff<=0){unlock();return}
+  document.getElementById("days").textContent=pad(Math.floor(diff/86400000));
+  document.getElementById("hours").textContent=pad(Math.floor(diff%86400000/3600000));
+  document.getElementById("minutes").textContent=pad(Math.floor(diff%3600000/60000));
+  document.getElementById("seconds").textContent=pad(Math.floor(diff%60000/1000));
+}
+if (TEST_MODE) unlock();
+else { tick(); setInterval(tick,1000); }
+document.getElementById("reconcileContinue").addEventListener("click",()=>showStage("octoberStage"));
+document.getElementById("octoberContinue").addEventListener("click",()=>showStage("giftPhotoStage"));
+document.getElementById("giftContinue").addEventListener("click",()=>showStage("sittingPhotoStage"));
+document.getElementById("sittingContinue").addEventListener("click",()=>showStage("standingPhotoStage"));
+document.getElementById("standingContinue").addEventListener("click",()=>{
+  document.querySelectorAll(".stage").forEach(s=>s.classList.remove("show"));
+  document.getElementById("ending").classList.add("show");
+  document.getElementById("ending").scrollIntoView({behavior:"smooth",block:"start"});
+});
+// Music stays in one persistent audio element across every stage and stops naturally at the end (no looping).
+// Playback begins directly from the visitor's click on the ready button.
+document.getElementById("readyBtn").addEventListener("click",()=>{
+  if(unlocked){
+    const music=document.getElementById("bgMusic");
+    if(music && music.getAttribute("src")) music.play().catch(()=>{});
+    showStage("reconcileStage");
+  }
+});
+document.querySelectorAll(".answer").forEach(b=>b.addEventListener("click",()=>document.getElementById("result").textContent=b.dataset.msg));
+
+// Star field drawn locally: no external image or library needed.
+const canvas=document.getElementById("sky"),ctx=canvas.getContext("2d");
+let stars=[];
+function resize(){
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+  canvas.width=innerWidth*dpr;canvas.height=innerHeight*dpr;
+  canvas.style.width=innerWidth+"px";canvas.style.height=innerHeight+"px";
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  stars=Array.from({length:Math.min(170,Math.floor(innerWidth*innerHeight/5000))},()=>({
+    x:Math.random()*innerWidth,y:Math.random()*innerHeight,
+    r:Math.random()*1.25+.25,a:Math.random()*.65+.2,s:Math.random()*.012+.003
+  }));
+}
+function draw(){
+  ctx.clearRect(0,0,innerWidth,innerHeight);
+  for(const st of stars){
+    st.a+=st.s;
+    const alpha=.25+Math.abs(Math.sin(st.a))*.65;
+    ctx.beginPath();ctx.arc(st.x,st.y,st.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(221,231,255,${alpha})`;ctx.fill();
+  }
+  requestAnimationFrame(draw);
+}
+addEventListener("resize",resize);resize();draw();
+</script>
+</body>
+</html>
